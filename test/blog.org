@@ -1,7 +1,7 @@
 #+HTML_HEAD: <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-#+HTML_HEAD: <link href="http://cdn.bootcss.com/semantic-ui/2.2.6/semantic.min.css" rel="stylesheet">
+#+HTML_HEAD: <link href="https://cdn.bootcss.com/semantic-ui/2.2.6/semantic.min.css" rel="stylesheet">
 #+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/css/blog.css">
-#+HTML_HEAD: <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 #+HTML_HEAD: <script src="https://pengwenbin7.github.io/static/js/blog.js"></script>
 #+AUTHOR: [[mailto:pengwenbin7@126.com][pengwenbin7]]
 #+TITLE: blog 示例
