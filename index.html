@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>pengwenbin的博客</title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="panel panel-default">
+	<div class="panel-heading">
+	  最近文章
+	</div>
+	<div class="panel-body">
+	  <ul id="contents">
+
+	  </ul>
+	</div>
+      </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function() {
+      var url = "static/htmls.json";
+      var contents = $("#contents");
+      var info;
+      $.getJSON(url, function(data) {
+	for (i in data) {
+	  i = data[i];
+	  href = '<a href="' + location.origin + "/" + i.file + '">' + i.title + "</a>";
+	  date = new Date(i.ctime * 1000);
+	  year = date.getFullYear();
+	  month = date.getMonth() + 1;
+	  day = date.getDate();
+	  date = "[" + year + "-" + month + "-" + day + "]";
+	  var li = $("<li>" + href + date + "</li>");
+	  contents.append(li);
+	}
+      });
+    });
+    </script>
+  </body>
+</html>

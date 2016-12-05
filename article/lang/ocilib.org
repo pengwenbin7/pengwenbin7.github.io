@@ -1,0 +1,197 @@
+#+HTML_HEAD: <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+#+HTML_HEAD: <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+#+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/css/article.css">
+#+HTML_HEAD: <script src="http://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script src="https://pengwenbin7.github.io/static/js/article.js"></script>
+#+OPTIONS: ^:{} 
+#+OPTIONS: _:{}
+#+AUTHOR: [[mailto:pengwenbin7@126.com][pengwenbin7]]
+#+TITLE: C语言连接Oracle数据库（使用ocilib库）
+
+* 数据库信息
+#+BEGIN_SRC 
+[db]
+type=oracle
+url=192.168.1.101
+port=1521
+db=XE
+user=admin
+pass=admin
+#+END_SRC
+
+* 初始化环境
+#+BEGIN_SRC c
+OCI_EXPORT boolean OCI_API OCI_Initialize(
+    POCI_ERROR err_handler,
+    const otext *lib_path,
+    unsigned int mode 
+)
+#+END_SRC
+err_handler错误处理, lib_path定义库的位置，都是可选的。
+
+#+BEGIN_SRC 
+mode:
+    OCI_ENV_DEFAULT : default mode
+    OCI_ENV_THREADED : multi-threading support
+    OCI_ENV_CONTEXT : thread contextual error handling
+    OCI_ENV_EVENTS : enables events for subscription, HA Events, AQ notifications
+#+END_SRC
+
+当前环境对应代码为：
+#+BEGIN_SRC c
+OCI_Initialize(NULL, NULL, OCI_ENV_DEFAULT);
+#+END_SRC
+
+* 连接数据库
+#+BEGIN_SRC c
+OCI_EXPORT OCI_Connection* OCI_API OCI_ConnectionCreate(
+        	const otext *  	db,
+		const otext *  	user,
+		const otext *  	pwd,
+		unsigned int  	mode 
+) 	
+#+END_SRC
+
+*db可简单写为：
+#+BEGIN_SRC 
+"ip:port/instance"
+#+END_SRC
+在当前环境下是：
+#+BEGIN_SRC 
+"192.168.1.101:1521/XE"
+#+END_SRC
+
+
+#+BEGIN_SRC 
+Possible values for parameter mode :
+    OCI_SESSION_DEFAULT
+    OCI_SESSION_SYSDBA
+    OCI_SESSION_SYSOPER
+    OCI_SESSION_XA
+#+END_SRC
+
+得到数据库连接：
+#+BEGIN_SRC c
+OCI_Connection *cn = OCI_ConnectionCreate(
+"192.168.1.101:1521/XE",
+"admin",
+"admin",
+OCI_SESSION_DEFAULT
+);
+#+END_SRC
+
+* 新建表
+接下来需要一个OCI_Statement对象用于执行SQL语句（OCI_Statement也可以执行PL/SQL块）
+#+BEGIN_SRC c
+OCI_Statement *st = OCI_StatementCreate(cn);
+#+END_SRC
+执行SQL语句
+#+BEGIN_SRC c
+OCI_ExecuteStmt(st, "create table t01 (id int, name varchar(20))");
+#+END_SRC
+* 增加三条记录
+#+BEGIN_SRC 
+OCI_ExecuteStmt(st, "insert into t01 values (1, 'One')");
+OCI_ExecuteStmt(st, "insert into t01 values (2, 'Two)");
+OCI_ExecuteStmt(st, "insert into t01 values (3, 'Three')");
+#+END_SRC
+* 查看
+从OCI_Resultset对象中取得返回结果，并遍历之
+#+BEGIN_SRC c
+OCI_Resultset *rs = OCI_GetResultset(st);
+while (OCI_FetchNext(rs)) {
+    printf("%d\t%s\n", OCI_GetInt(rs, 1), OCI_GetString(rs, 2));
+}
+#+END_SRC
+注意：
+#+BEGIN_SRC 
+Column position starts at 1.
+#+END_SRC
+* 删除/修改一条记录
+除了查看，其他操作都需要提交改变，否则改动只对当前运行时有效
+#+BEGIN_SRC c
+OCI_Commit(cn); // 提交变更
+#+END_SRC
+
+* 清除环境
+最后，执行
+#+BEGIN_SRC c
+OCI_Cleanup();
+#+END_SRC
+清空ORACLE环境
+
+* 简单示例
+#+BEGIN_SRC c
+/**
+ * ocilib simple code
+ * @author pengwenbin7@126.com
+ * @filename main.c
+ * @compile gcc main.c -locilib -o main
+ */
+#include <stdio.h>
+#include <stdlib.h>
+#include <ocilib.h>
+
+int main(int argc, char **argv)
+{
+  OCI_Connection *cn;
+  OCI_Statement  *st;
+  OCI_Resultset *rs;
+
+  // init env
+  if (!OCI_Initialize(NULL, NULL, OCI_ENV_DEFAULT)) {
+    fprintf(stderr, "connect error");
+    return EXIT_FAILURE;
+  }
+
+  // connect oracle xe
+  const char *db = "192.168.1.101:1521/XE",
+    *user = "admin",
+    *pass = "admin";
+  const int mode = OCI_SESSION_DEFAULT;
+  cn = OCI_ConnectionCreate(db, user, pass, mode);
+
+  // get OCI_Statement object
+  st = OCI_StatementCreate(cn);
+
+  // execute sql statement
+  OCI_ExecuteStmt(st,
+		  "create table t01 (id int, name varchar(20))"
+		  );
+  OCI_ExecuteStmt(st,
+		  "insert into t01 values (1, 'xl')"
+		  );
+  OCI_ExecuteStmt(st,
+		  "insert into t01 values (2, 'haha')"
+		  );
+  OCI_ExecuteStmt(st,
+		  "insert into t01 values (3, 'gogo')"
+		  );
+  OCI_ExecuteStmt(st,
+		  "update t01 set name = 'xxxxx' where id = 2"
+		  );
+  OCI_ExecuteStmt(st,
+		  "delete from t01 where id = 3"
+		  );
+  OCI_ExecuteStmt(st,
+		  "select * from t01"
+		  );
+		  
+  // get result
+  rs = OCI_GetResultset(st);
+  while (OCI_FetchNext(rs)) {
+    printf("%d\t%s\n", OCI_GetInt(rs, 1), OCI_GetString(rs, 2));
+  }
+  // getColumnCount retrieve the number of rows fetched so far
+  unsigned int row = OCI_GetRowCount(rs),
+    column = OCI_GetColumnCount(rs);
+  printf("resultset size: %u x %u\n", row, column);
+
+  // commit update
+  OCI_Commit(cn);
+  // clean up
+  OCI_Cleanup();
+  return EXIT_SUCCESS;
+}
+#+END_SRC

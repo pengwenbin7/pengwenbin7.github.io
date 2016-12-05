@@ -1,0 +1,30 @@
+body {
+  font-size: 12px;
+  font-family: serif;
+}
+h1, h2, h3 {
+  font-family: sans-serif;
+  font-weight: bold;
+}
+a, a:hover, a:focus {
+  text-decoration: none;
+}
+h1 {
+  font-size: 16px;
+  text-align: center;
+}
+h2 {
+  font-size: 14px;
+}
+h3 {
+  font-size: 12px;
+}
+tr:hover, tr:focus {
+  background-color: #f0f0f0;
+}
+ul, li {
+  list-style-type: none;
+}
+ul {
+  padding-left: 13px;
+}

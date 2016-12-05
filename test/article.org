@@ -1,0 +1,562 @@
+#+HTML_HEAD: <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+#+HTML_HEAD: <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+#+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/css/article.css">
+#+HTML_HEAD: <script src="http://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script src="https://pengwenbin7.github.io/static/js/article.js"></script>
+#+OPTIONS: ^:{} 
+#+OPTIONS: _:{}
+#+AUTHOR: [[mailto:pengwenbin7@126.com][pengwenbin7]]
+#+TITLE: article 示例
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC

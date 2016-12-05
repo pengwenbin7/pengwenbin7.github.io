@@ -1,0 +1,50 @@
+#+HTML_HEAD: <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+#+HTML_HEAD: <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+#+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/css/article.css">
+#+HTML_HEAD: <script src="http://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script src="https://pengwenbin7.github.io/static/js/article.js"></script>
+#+OPTIONS: ^:{} 
+#+OPTIONS: _:{}
+#+AUTHOR: [[mailto:pengwenbin7@126.com][pengwenbin7]]
+#+TITLE: GHashTable使用
+
+[[https://developer.gnome.org/glib/stable/glib-Hash-Tables.html][GHashTable文档]]
+* 创建与销毁
+#+BEGIN_SRC c
+// 新建一个键和值都是字符串的hash表
+GHashTable *table = g_hash_table_new(g_str_hash, g_str_equal); 
+// 销毁一个hash表
+g_hash_table_destroy(table);
+#+END_SRC
+  
+* 增删改查
+#+BEGIN_SRC c
+// 插入一个键值对
+gboolean pInsert = g_hash_table_insert(table, "key", "value");
+// 读一个键的值
+void *value = g_hash_table_lookup(table, "key");
+// 读所有键
+GList *keys = g_hash_table_keys(table);
+// 读所有值
+GList *values = g_hash_table_values(table);
+// 删除一个键值对
+gboolean pRm = g_hash_table_remove(table, "key");
+// 删除所有键值对，返回void
+g_hash_table_remove_all(table);
+// 插入键、值相等的键值对（此时HashTable表现出List的行为）
+gboolean pAdd = g_hash_table_add(table, "li");
+// 修改一个键对应的值
+gboolean pReplace = g_hash_table_replace(talbe, "key", "value2");
+#+END_SRC
+  
+* 遍历
+#+BEGIN_SRC c
+// 回调函数，data是传递到g_hash_table_foreach()的值
+void func(gpointer key, gpointer value, gpointer data)
+{
+    printf("%s: %s", (char *) key, (char *) value);
+}
+// 对每一个键值对执行回调函数func
+g_hash_table_foreach(table, func, NULL);
+#+END_SRC

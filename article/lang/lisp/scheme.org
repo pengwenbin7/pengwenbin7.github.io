@@ -1,0 +1,98 @@
+#+HTML_HEAD: <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+#+HTML_HEAD: <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+#+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/css/article.css">
+#+HTML_HEAD: <script src="http://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script src="https://pengwenbin7.github.io/static/js/article.js"></script>
+#+OPTIONS: ^:{} 
+#+OPTIONS: _:{}
+#+AUTHOR: [[mailto:pengwenbin7@126.com][pengwenbin7]]
+#+TITLE: scheme笔记
+
+* The Five Rules
+** The Law of Car
+#+BEGIN_QUOTE
+The primitive =car= is defined only for non-empty lists
+#+END_QUOTE
+
+在scheme实现里， =car= 作用于 =list= , =pair=
+** The Law of Cdr
+#+BEGIN_QUOTE
+The primitive =cdr= is defined only for non-empty lists. 
+The =cdr= of any non-empty list is always another list.
+#+END_QUOTE
+在scheme实现里， =cdr= 作用于 =list= , =pair=
+** The Law of Cons
+#+BEGIN_QUOTE
+The primitive =cons= takes two arguments.
+The second argument to =cons= must be a list.
+The result is a list.
+#+END_QUOTE
+
+=cons= 的第二个参数是 =list= 时返回 =list= ， 若是 =atom= 则返回 =pair= 。
+#+BEGIN_SRC scheme
+> (cons 'a 'b)
+(a . b)
+> (cons 'a '(b))
+(a b)
+#+END_SRC
+
+** The Law of Null?
+#+BEGIN_QUOTE
+The primitive =null?= is defined only for lists.
+#+END_QUOTE
+
+=null?= 可以接受 =atom= 参数。ex:
+#+BEGIN_SRC scheme
+> (null? 3)
+#f
+> (null? 'a)
+#f
+> (null? '(a b))
+#f
+> (null? '())
+#t
+#+END_SRC
+
+** The Law of Eq?
+#+BEGIN_QUOTE
+The primitive =eq?= takes two arguments.
+Each must be a non-numeric atom.
+#+END_QUOTE
+
+=eq?= 的两个参数可以是 =atom= , =list= ，当作用于列表时，比较列表的地址。
+如果需要比较列表的值，使用 =equal?= 。ex:
+#+BEGIN_SRC scheme
+> (eq? 2 2)
+#t
+> (define l '(a b c))
+> (eq? l l)
+#t
+> (eq? '(a b c) '(a b c))
+#f
+> (equal? '(a b c) '(a b c))
+#t
+#+END_SRC
+** reverse a list example:
+#+BEGIN_SRC scheme
+;reverse a list
+(define (my-reverse-func l s)
+  (cond ((null? l) s)
+	((my-reverse-func
+	  (cdr l)
+	  (cons (car l) s)))))
+(define (my-reverse l)
+  (and (list? l)
+       (my-reverse-func l '())))
+#+END_SRC
+
+** fibonacci number example:
+#+BEGIN_SRC scheme
+;; fibonacci number
+(define (fib-ref i n a b)
+  (cond ((< n 2) n)
+	((= i n) b)
+	((fib-ref (+ i 1) n b (+ a b)))))
+(define (fib n)
+  (fib-ref 1 n 0 1))
+#+END_SRC

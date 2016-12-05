@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>C语言连接Oracle数据库（使用ocilib库）</title>
+<!-- 2016-12-05 Mon 15:45 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="[[mailto:pengwenbin7@126.com][pengwenbin7]]pengwenbin7" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://pengwenbin7.github.io/static/css/article.css">
+<script src="http://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://pengwenbin7.github.io/static/js/article.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">C语言连接Oracle数据库（使用ocilib库）</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 数据库信息</a></li>
+<li><a href="#sec-2">2. 初始化环境</a></li>
+<li><a href="#sec-3">3. 连接数据库</a></li>
+<li><a href="#sec-4">4. 新建表</a></li>
+<li><a href="#sec-5">5. 增加三条记录</a></li>
+<li><a href="#sec-6">6. 查看</a></li>
+<li><a href="#sec-7">7. 删除/修改一条记录</a></li>
+<li><a href="#sec-8">8. 清除环境</a></li>
+<li><a href="#sec-9">9. 简单示例</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 数据库信息</h2>
+<div class="outline-text-2" id="text-1">
+<pre class="example">
+[db]
+type=oracle
+url=192.168.1.101
+port=1521
+db=XE
+user=admin
+pass=admin
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 初始化环境</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+
+<pre class="src src-c">OCI_EXPORT boolean <span style="color: #34cae2;">OCI_API</span> <span style="color: #00ede1; font-weight: bold;">OCI_Initialize</span>(
+    <span style="color: #34cae2;">POCI_ERROR</span> <span style="color: #dbdb95;">err_handler</span>,
+    <span style="color: #ffad29; font-weight: bold;">const</span> <span style="color: #34cae2;">otext</span> *<span style="color: #dbdb95;">lib_path</span>,
+    <span style="color: #34cae2;">unsigned</span> <span style="color: #34cae2;">int</span> <span style="color: #dbdb95;">mode</span> 
+)
+</pre>
+</div>
+<p>
+err_handler错误处理, lib_path定义库的位置，都是可选的。
+</p>
+
+<pre class="example">
+mode:
+    OCI_ENV_DEFAULT : default mode
+    OCI_ENV_THREADED : multi-threading support
+    OCI_ENV_CONTEXT : thread contextual error handling
+    OCI_ENV_EVENTS : enables events for subscription, HA Events, AQ notifications
+</pre>
+
+<p>
+当前环境对应代码为：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c">OCI_Initialize(<span style="color: #008b8b;">NULL</span>, <span style="color: #008b8b;">NULL</span>, OCI_ENV_DEFAULT);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 连接数据库</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+
+<pre class="src src-c">OCI_EXPORT <span style="color: #34cae2;">OCI_Connection</span>* <span style="color: #00ede1; font-weight: bold;">OCI_API</span> OCI_ConnectionCreate(
+                <span style="color: #ffad29; font-weight: bold;">const</span> <span style="color: #34cae2;">otext</span> *   <span style="color: #dbdb95;">db</span>,
+                <span style="color: #ffad29; font-weight: bold;">const</span> <span style="color: #34cae2;">otext</span> *   <span style="color: #dbdb95;">user</span>,
+                <span style="color: #ffad29; font-weight: bold;">const</span> <span style="color: #34cae2;">otext</span> *   <span style="color: #dbdb95;">pwd</span>,
+                <span style="color: #34cae2;">unsigned</span> <span style="color: #34cae2;">int</span>    <span style="color: #dbdb95;">mode</span> 
+)
+</pre>
+</div>
+
+<p>
+*db可简单写为：
+</p>
+<pre class="example">
+"ip:port/instance"
+</pre>
+<p>
+在当前环境下是：
+</p>
+<pre class="example">
+"192.168.1.101:1521/XE"
+</pre>
+
+
+<pre class="example">
+Possible values for parameter mode :
+    OCI_SESSION_DEFAULT
+    OCI_SESSION_SYSDBA
+    OCI_SESSION_SYSOPER
+    OCI_SESSION_XA
+</pre>
+
+<p>
+得到数据库连接：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #34cae2;">OCI_Connection</span> *<span style="color: #dbdb95;">cn</span> = OCI_ConnectionCreate(
+<span style="color: #e67128;">"192.168.1.101:1521/XE"</span>,
+<span style="color: #e67128;">"admin"</span>,
+<span style="color: #e67128;">"admin"</span>,
+OCI_SESSION_DEFAULT
+);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 新建表</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+接下来需要一个OCI_Statement对象用于执行SQL语句（OCI_Statement也可以执行PL/SQL块）
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #34cae2;">OCI_Statement</span> *<span style="color: #dbdb95;">st</span> = OCI_StatementCreate(cn);
+</pre>
+</div>
+<p>
+执行SQL语句
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c">OCI_ExecuteStmt(st, <span style="color: #e67128;">"create table t01 (id int, name varchar(20))"</span>);
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 增加三条记录</h2>
+<div class="outline-text-2" id="text-5">
+<pre class="example">
+OCI_ExecuteStmt(st, "insert into t01 values (1, 'One')");
+OCI_ExecuteStmt(st, "insert into t01 values (2, 'Two)");
+OCI_ExecuteStmt(st, "insert into t01 values (3, 'Three')");
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> 查看</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+从OCI_Resultset对象中取得返回结果，并遍历之
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #34cae2;">OCI_Resultset</span> *<span style="color: #dbdb95;">rs</span> = OCI_GetResultset(st);
+<span style="color: #ffad29; font-weight: bold;">while</span> (OCI_FetchNext(rs)) {
+    printf(<span style="color: #e67128;">"%d\t%s\n"</span>, OCI_GetInt(rs, 1), OCI_GetString(rs, 2));
+}
+</pre>
+</div>
+<p>
+注意：
+</p>
+<pre class="example">
+Column position starts at 1.
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> 删除/修改一条记录</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+除了查看，其他操作都需要提交改变，否则改动只对当前运行时有效
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c">OCI_Commit(cn); <span style="color: #74af68;">// </span><span style="color: #74af68;">&#25552;&#20132;&#21464;&#26356;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> 清除环境</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+最后，执行
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c">OCI_Cleanup();
+</pre>
+</div>
+<p>
+清空ORACLE环境
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> 简单示例</h2>
+<div class="outline-text-2" id="text-9">
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #e67128;">/**</span>
+<span style="color: #e67128;"> * ocilib simple code</span>
+<span style="color: #e67128;"> * </span><span style="color: #008b8b;">@author</span><span style="color: #e67128;"> pengwenbin7</span><span style="color: #008b8b;">@126</span><span style="color: #e67128;">.com</span>
+<span style="color: #e67128;"> * </span><span style="color: #008b8b;">@filename</span><span style="color: #e67128;"> main.c</span>
+<span style="color: #e67128;"> * </span><span style="color: #008b8b;">@compile</span><span style="color: #e67128;"> gcc main.c -locilib -o main</span>
+<span style="color: #e67128;"> */</span>
+<span style="color: #23d7d7;">#include</span> <span style="color: #e67128;">&lt;stdio.h&gt;</span>
+<span style="color: #23d7d7;">#include</span> <span style="color: #e67128;">&lt;stdlib.h&gt;</span>
+<span style="color: #23d7d7;">#include</span> <span style="color: #e67128;">&lt;ocilib.h&gt;</span>
+
+<span style="color: #34cae2;">int</span> <span style="color: #00ede1; font-weight: bold;">main</span>(<span style="color: #34cae2;">int</span> <span style="color: #dbdb95;">argc</span>, <span style="color: #34cae2;">char</span> **<span style="color: #dbdb95;">argv</span>)
+{
+  <span style="color: #34cae2;">OCI_Connection</span> *<span style="color: #dbdb95;">cn</span>;
+  <span style="color: #34cae2;">OCI_Statement</span>  *<span style="color: #dbdb95;">st</span>;
+  <span style="color: #34cae2;">OCI_Resultset</span> *<span style="color: #dbdb95;">rs</span>;
+
+  <span style="color: #74af68;">// </span><span style="color: #74af68;">init env</span>
+  <span style="color: #ffad29; font-weight: bold;">if</span> (!OCI_Initialize(<span style="color: #008b8b;">NULL</span>, <span style="color: #008b8b;">NULL</span>, OCI_ENV_DEFAULT)) {
+    fprintf(stderr, <span style="color: #e67128;">"connect error"</span>);
+    <span style="color: #ffad29; font-weight: bold;">return</span> EXIT_FAILURE;
+  }
+
+  <span style="color: #74af68;">// </span><span style="color: #74af68;">connect oracle xe</span>
+  <span style="color: #ffad29; font-weight: bold;">const</span> <span style="color: #34cae2;">char</span> *<span style="color: #dbdb95;">db</span> = <span style="color: #e67128;">"192.168.1.101:1521/XE"</span>,
+    *<span style="color: #dbdb95;">user</span> = <span style="color: #e67128;">"admin"</span>,
+    *<span style="color: #dbdb95;">pass</span> = <span style="color: #e67128;">"admin"</span>;
+  <span style="color: #ffad29; font-weight: bold;">const</span> <span style="color: #34cae2;">int</span> <span style="color: #dbdb95;">mode</span> = OCI_SESSION_DEFAULT;
+  cn = OCI_ConnectionCreate(db, user, pass, mode);
+
+  <span style="color: #74af68;">// </span><span style="color: #74af68;">get OCI_Statement object</span>
+  st = OCI_StatementCreate(cn);
+
+  <span style="color: #74af68;">// </span><span style="color: #74af68;">execute sql statement</span>
+  OCI_ExecuteStmt(st,
+                  <span style="color: #e67128;">"create table t01 (id int, name varchar(20))"</span>
+                  );
+  OCI_ExecuteStmt(st,
+                  <span style="color: #e67128;">"insert into t01 values (1, 'xl')"</span>
+                  );
+  OCI_ExecuteStmt(st,
+                  <span style="color: #e67128;">"insert into t01 values (2, 'haha')"</span>
+                  );
+  OCI_ExecuteStmt(st,
+                  <span style="color: #e67128;">"insert into t01 values (3, 'gogo')"</span>
+                  );
+  OCI_ExecuteStmt(st,
+                  <span style="color: #e67128;">"update t01 set name = 'xxxxx' where id = 2"</span>
+                  );
+  OCI_ExecuteStmt(st,
+                  <span style="color: #e67128;">"delete from t01 where id = 3"</span>
+                  );
+  OCI_ExecuteStmt(st,
+                  <span style="color: #e67128;">"select * from t01"</span>
+                  );
+
+  <span style="color: #74af68;">// </span><span style="color: #74af68;">get result</span>
+  rs = OCI_GetResultset(st);
+  <span style="color: #ffad29; font-weight: bold;">while</span> (OCI_FetchNext(rs)) {
+    printf(<span style="color: #e67128;">"%d\t%s\n"</span>, OCI_GetInt(rs, 1), OCI_GetString(rs, 2));
+  }
+  <span style="color: #74af68;">// </span><span style="color: #74af68;">getColumnCount retrieve the number of rows fetched so far</span>
+  <span style="color: #34cae2;">unsigned</span> <span style="color: #34cae2;">int</span> <span style="color: #dbdb95;">row</span> = OCI_GetRowCount(rs),
+    <span style="color: #dbdb95;">column</span> = OCI_GetColumnCount(rs);
+  printf(<span style="color: #e67128;">"resultset size: %u x %u\n"</span>, row, column);
+
+  <span style="color: #74af68;">// </span><span style="color: #74af68;">commit update</span>
+  OCI_Commit(cn);
+  <span style="color: #74af68;">// </span><span style="color: #74af68;">clean up</span>
+  OCI_Cleanup();
+  <span style="color: #ffad29; font-weight: bold;">return</span> EXIT_SUCCESS;
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: <a href="mailto:pengwenbin7@126.com">pengwenbin7</a></p>
+<p class="date">Created: 2016-12-05 Mon 15:45</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
