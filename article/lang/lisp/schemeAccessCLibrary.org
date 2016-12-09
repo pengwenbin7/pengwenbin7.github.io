@@ -15,7 +15,7 @@
 (load-shared-object "libc.so.6") ;; 调用 C 庫
 ((foreign-procedure "strlen" (string) int) "nice") ;; 匿名函数调用, output: 4
 (define strlen (foreign-procedure "strlen" (string) int)) ;; 定义 Scheme 函数
-(strlen "中国") ;; output: 6, 默认采用 UTF-8 编码，两个汉字长度为6
+(strlen "中国") ;; output: 6, 默认采用 UTF-8 编码，两个汉字长度为6。若要返回2，使用string-length
 #+END_SRC
 
 =(load-shared-object "libc.so.6")= 载入动态链接库，可以写绝对地址，否则在系统默认目录里面搜索。
@@ -24,7 +24,7 @@
 =(foreign-procedure 函数名 (参数1类型 参数2类型 ...) 返回值类型)= , 
 =foreign-procedure= 返回函数
 
-=(foreign-entry? "strlen")= 外部函数 =strlen= 是否存在，返回 =#t= 或 =#f=。
+=(foreign-entry? "strlen")= 外部函数 =strlen= 是否存在，返回 =#t= 或 =#f= 。
 
 * 数据类型
 ** 基本类型
@@ -49,6 +49,93 @@
 | size_t          | size_t       |
 | void            | void         |
 | unsigned char * | utf-8/string |
+一般来说， C 中的类型转换到 Scheme 名字不变，或者是空格替换为"-"， 
+例外是 =char= 类型转换为 =integer-8= ，
+而 =unsigned char= 转换为 =char= 或者 =octet= ，一般使用 =octet= 避免混淆。 
 
+* 调用自定义库
+C 示例代码
+#+BEGIN_SRC c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    int age;
+    char *name;
+} People;
+
+int add(int a, int b)
+{
+    return a + b;
+}
+
+People *newPeople(int age, char *name)
+{
+    People *p = (People *) malloc(sizeof(People));
+    p->age = age;
+    p->name = name;
+    return p;
+}
+
+char *sayHi(char *s)
+{
+    char *hi = (char *) malloc(strlen(s) + 5);
+    sprintf(hi, "Hi, %s.", s);
+    return hi;
+}
+
+int main(int argc, char *argv)
+{
+    People *p = newPeople(13, "Sara Scott");
+    printf("%d, %s\n", p->age, p->name);
+    printf("%s\n", sayHi("Tom cat"));
+
+    return 0;
+}
+#+END_SRC
+编译动态连接库 =gcc -fPIC -shared -o lib.so lib.c= 。
+
+调用示例
+#+BEGIN_SRC scheme
+(load-shared-object "./lib.so")
+((foreign-procedure "add" (int int) int) 2 3) ;; output: 5
+((foreign-procedure "sayHi" (string) string) "Tom Scott") ;; out: "Hi, Tom Scott."
+(define newPeople (foreign-procedure "newPeople" (int string) iptr))
+(newPeople 13 "Sara Scott") ;; out: 36699504
+(newPeople 13 "Sara Scott") ;; out: 36699536
+(newPeople 13 "Sara Scott") ;; out: 36699568
+#+END_SRC
+
+调用返回基础数据类型的函数是很方便的，调用 =newPeople()= 返回了指针的地址。
+连续3次调用，返回值相差32，正好是一个指针的大小，这里正好使用了连续的地址。
+
+* 使用 C 结构体
+** 定义结构体
+#+BEGIN_SRC scheme
+(define-ftype People (struct (age int) (name (* char))))
+#+END_SRC
+在 =define-ftype= 内， =string= 失效，须使用原始的 =(* char)= 。
+
+** 访问结构体成员
+=(ftype-ref 类型名 (索引1 索引2 ...) 该类型指针 [索引])= 。
+#+BEGIN_SRC scheme
+(define newPeople (foreign-procedure "newPeople" (int string) (* People)))
+(define p (newPeople 13 "Sara Scott"))
+p ;; out: #<ftype-pointer People 37355120>
+(ftype-ref People (age) p) ;; out: 13
+(define name (ftype-ref People (name) p))
+name ;; out: #<ftype-pointer char 1099256824>
+(ftype-ref char () name) ;; out: #\S
+(ftype-ref char () name 1) ;; out: #\a
+#+END_SRC
+
+** 打印结构体指针
+#+BEGIN_SRC scheme
+(define s (ftype-pointer->sexpr p)) 
+s ;; out: (struct [age 13] [name "Sara Scott"])
+(list? s) ;; out: #t
+#+END_SRC
+=ftype-pointer->sexpr= 返回 =list= 。
 * 参考
 [[https://cisco.github.io/ChezScheme/csug9.4/foreign.html][ChezScheme document]]
