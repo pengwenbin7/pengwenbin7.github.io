@@ -17,4 +17,6 @@ $(document).ready(function() {
 	$("#content").css("margin-left", 0);
 	$("#postamble").css("display", "none");
     }
+    
+    $("table).addClass("table").addClass("table-bordered");
 });

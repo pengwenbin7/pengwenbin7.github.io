@@ -42,7 +42,7 @@ def findHtml(dir):
     return htmls
 
 htmls = findHtml(root)
-htmls = sorted(htmls, key=os.path.getctime)
+htmls = sorted(htmls, key=os.path.getctime, reverse=True)
 
 for i in htmls:
     info.append({"file": i, "ctime": int(os.path.getctime(i)), "title": getTitle(i)})

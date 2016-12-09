@@ -1,0 +1,54 @@
+#+HTML_HEAD: <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+#+HTML_HEAD: <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+#+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/css/article.css">
+#+HTML_HEAD: <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script src="https://pengwenbin7.github.io/static/js/article.js"></script>
+#+OPTIONS: ^:{} 
+#+OPTIONS: _:{}
+#+AUTHOR: [[mailto:pengwenbin7@126.com][pengwenbin7]]
+#+TITLE: ChezScheme 调用 C 库
+
+* 调用标准库
+系统环境： =ubuntu 16.04= + =ChezScheme 9.4= + =gcc 5.4.0=
+#+BEGIN_SRC scheme
+(load-shared-object "libc.so.6") ;; 调用 C 庫
+((foreign-procedure "strlen" (string) int) "nice") ;; 匿名函数调用, output: 4
+(define strlen (foreign-procedure "strlen" (string) int)) ;; 定义 Scheme 函数
+(strlen "中国") ;; output: 6, 默认采用 UTF-8 编码，两个汉字长度为6
+#+END_SRC
+
+=(load-shared-object "libc.so.6")= 载入动态链接库，可以写绝对地址，否则在系统默认目录里面搜索。
+当前目录不在搜索范围内，当前目录下的库要写成 =./lib.so= 。
+
+=(foreign-procedure 函数名 (参数1类型 参数2类型 ...) 返回值类型)= , 
+=foreign-procedure= 返回函数
+
+=(foreign-entry? "strlen")= 外部函数 =strlen= 是否存在，返回 =#t= 或 =#f=。
+
+* 数据类型
+** 基本类型
+| C              | Scheme         |
+| char           | integer-8      |
+| int            | int            |
+| float          | float          |
+| double         | double         |
+** C 扩展类型
+| C              | Scheme         |
+| short          | short          |
+| long           | long           |
+| unsigned char  | octet/char     |
+| unsigned short | unsigned-short |
+| unsigned long  | unsigned-long  |
+| wchar_t        | wchar_t        |
+** Scheme 扩展
+| C               | Scheme       |
+| void *          | uptr/void*   |
+| 0               | boolean(#f)  |
+| !0              | boolean(#t)  |
+| size_t          | size_t       |
+| void            | void         |
+| unsigned char * | utf-8/string |
+
+* 参考
+[[https://cisco.github.io/ChezScheme/csug9.4/foreign.html][ChezScheme document]]
