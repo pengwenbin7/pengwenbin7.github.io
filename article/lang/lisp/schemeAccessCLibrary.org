@@ -137,5 +137,7 @@ s ;; out: (struct [age 13] [name "Sara Scott"])
 (list? s) ;; out: #t
 #+END_SRC
 =ftype-pointer->sexpr= 返回 =list= 。
+
+联合( =union= )的处理和结构( =struct= )类似。
 * 参考
 [[https://cisco.github.io/ChezScheme/csug9.4/foreign.html][ChezScheme document]]
