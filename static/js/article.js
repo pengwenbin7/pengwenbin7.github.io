@@ -18,5 +18,5 @@ $(document).ready(function() {
 	$("#postamble").css("display", "none");
     }
     
-    $("table").addClass("table").addClass("table-bordered");
+    $("table").addClass("table").addClass("table-bordered").addClass("table-striped").addClass("table-condensed");
 });
