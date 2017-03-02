@@ -1,0 +1,27 @@
+#+HTML_HEAD: <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+#+HTML_HEAD: <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+#+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/css/article.css">
+#+HTML_HEAD: <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script src="https://pengwenbin7.github.io/static/js/article.js"></script>
+#+OPTIONS: ^:{} 
+#+OPTIONS: _:{}
+#+AUTHOR: [[mailto:pengwenbin7@126.com][pengwenbin7]]
+#+TITLE: mysql 计划任务
+
+* 开启计划任务
+#+BEGIN_SRC sql
+SET GLOBAL event_scheduler="ON" 
+#+END_SRC
+
+* 关闭计划任务
+#+BEGIN_SRC sql
+SET GLOBAL event_scheduler="OFF" 
+#+END_SRC
+
+* 定时任务
+#+BEGIN_SRC sql
+create EVENT event_name
+ON SCHEDULE EVERY 1 SECOND STARTS '2016-11-30 14:13:35' DO 
+INSERT INTO test.t00 (`time`) VALUES (unix_timestamp());
+#+END_SRC
