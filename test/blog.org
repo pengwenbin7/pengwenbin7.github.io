@@ -1,10 +1,9 @@
-#+HTML_HEAD: <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-#+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/css/semantic.min.css">
-#+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/css/blog.css">
-#+HTML_HEAD: <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-#+HTML_HEAD: <script src="https://pengwenbin7.github.io/static/js/blog.js"></script>
+#+SETUP: https://pengwenbin7.github.io/static/blog.setup
+
+#+OPTIONS: ^:{} 
+#+OPTIONS: _:{}
 #+AUTHOR: [[mailto:pengwenbin7@126.com][pengwenbin7]]
-#+TITLE: blog 示例
+#+TITLE: blog 测试
 
 * 段落
 在本章中，我会讲解如何自定义函数。由于Sheme是函数式编程语言，你需要通过编写小型函数来构造程序。

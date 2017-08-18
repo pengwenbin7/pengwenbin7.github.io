@@ -1,0 +1,10 @@
+# -*- mode: org; -*-
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://pengwenbin7.github.io/static/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://pengwenbin7.github.io/static/readtheorg/css/readtheorg.css"/>
+#+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/css/article.css">
+
+#+HTML_HEAD: <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="https://pengwenbin7.github.io/static/readtheorg/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="https://pengwenbin7.github.io/static/readtheorg/js/readtheorg.js"></script>
