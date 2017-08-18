@@ -5,3 +5,7 @@
 #content p {
     text-indent: 2em;
 }
+
+#postamble {
+    font-size: 1em;
+}
