@@ -21,6 +21,103 @@
 #+END_SRC
 
 ** c
+   最开始的程序 =printf("Hello world\n");= .
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+   最开始的程序 =printf("Hello world\n");= .
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+   最开始的程序 =printf("Hello world\n");= .
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+   最开始的程序 =printf("Hello world\n");= .
+#+BEGIN_SRC c -n
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    /* I'm comment.*/
+    // I'm comment too.
+    int i;
+    for (i = 0; i++; i < 10) {
+        printf("%d\n", i);
+    }
+    return 0;
+}
+#+END_SRC
+
+* program example
+** scheme
+#+BEGIN_SRC scheme
+(define p 3.14)
+(display p)
+#+END_SRC
+
+** c
+   最开始的程序 =printf("Hello world\n");= .
 #+BEGIN_SRC c -n
 #include <stdio.h>
 
