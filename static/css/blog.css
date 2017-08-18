@@ -1,4 +1,7 @@
-#content p {
+#content {
     font-size: 1.5em;
+}
+
+#content p {
     text-indent: 2em;
 }
