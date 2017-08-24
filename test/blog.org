@@ -1,17 +1,6 @@
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://pengwenbin7.github.io/static/bigblow/css/htmlize.css"/>
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://pengwenbin7.github.io/static/bigblow/css/bigblow.css"/>
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://pengwenbin7.github.io/static/bigblow/css/hideshow.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://pengwenbin7.github.io/static/css/solarized-light.css"/>
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://pengwenbin7.github.io/static/css/blog.css"/>
 
-#+HTML_HEAD: <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-#+HTML_HEAD: <script type="text/javascript" src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.css"></script>
-
-#+HTML_HEAD: <script type="text/javascript" src="https://pengwenbin7.github.io/static/bigblow/js/jquery.localscroll-min.js"></script>
-#+HTML_HEAD: <script type="text/javascript" src="https://pengwenbin7.github.io/static/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
-#+HTML_HEAD: <script type="text/javascript" src="https://pengwenbin7.github.io/static/bigblow/js/jquery.zclip.min.js"></script>
-#+HTML_HEAD: <script type="text/javascript" src="https://pengwenbin7.github.io/static/bigblow/js/bigblow.js"></script>
-#+HTML_HEAD: <script type="text/javascript" src="https://pengwenbin7.github.io/static/bigblow/js/hideshow.js"></script>
-#+HTML_HEAD: <script type="text/javascript" src="https://pengwenbin7.github.io/static/js/jquery.stickytableheaders.min.js"></script>
 #+HTML_HEAD: <script type="text/javascript" src="https://pengwenbin7.github.io/static/js/blog.js"></script>
 
 #+OPTIONS: ^:{} 
