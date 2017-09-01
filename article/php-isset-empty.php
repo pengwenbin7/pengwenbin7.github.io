@@ -11,16 +11,4 @@
 #+OPTIONS: ^:{} 
 #+OPTIONS: _:{}
 #+AUTHOR: [[mailto:pengwenbin7@126.com][pengwenbin7]]
-#+TITLE: note
-
-* git 远程覆盖本地
-#+BEGIN_SRC bash
-git fetch --all  
-git reset --hard origin/master 
-#+END_SRC
-* mvn 获取源码和文档
-#+BEGIN_SRC shell
-mvn dependency:sources
-mvn dependency:resolve -Dclassifier=javadoc
-#+END_SRC
-[[https://maven.apache.org/plugins/maven-dependency-plugin/sources-mojo.html][更多]]
+#+TITLE: php isset 和 empty 函数
