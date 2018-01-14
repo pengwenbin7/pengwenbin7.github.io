@@ -1,0 +1,28 @@
+#+HTML_HEAD: <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+#+HTML_HEAD: <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+#+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/readtheorg/css/htmlize.css">
+#+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/readtheorg/css/readtheorg.css">
+#+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/readtheorg/css/rtd-full.css">
+#+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/css/article.css">
+#+HTML_HEAD: <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script src="https://pengwenbin7.github.io/static/js/article.js"></script>
+#+HTML_HEAD: <script src="https://pengwenbin7.github.io/static/readtheorg/js/readtheorg.js"></script>
+#+OPTIONS: ^:{} 
+#+OPTIONS: _:{}
+#+AUTHOR: [[mailto:pengwenbin7@126.com][pengwenbin7]]
+#+TITLE: 数据结构及应用算法笔记
+
+* ch2
+** 按逻辑结构，数据结构分成
+  1. 线性结构
+  2. 树状结构
+  3. 图状结构
+** 对于图状结构
+   + 对象 -> 点
+   + 对象的关系 -> 边
+** 证明(全世界任意6个人中，必有3个互相认识或互相不认识)
+** 定义数据结构、算法
+   + 利用计算机语言来描述所要处理的对象的方法 -> 数据结构
+   + 处理这些对象的方法 -> 算法
+   + 数据结构 + 算法 = 程序
