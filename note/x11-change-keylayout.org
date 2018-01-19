@@ -1,0 +1,23 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://pengwenbin7.github.io/static/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://pengwenbin7.github.io/static/readtheorg/css/readtheorg.css"/>
+#+HTML_HEAD: <link rel="stylesheet" href="https://pengwenbin7.github.io/static/css/article.css">
+
+#+HTML_HEAD: <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="https://pengwenbin7.github.io/static/readtheorg/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="https://pengwenbin7.github.io/static/readtheorg/js/readtheorg.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="https://pengwenbin7.github.io/static/js/article.js"></script>
+
+#+OPTIONS: ^:{} 
+#+OPTIONS: _:{}
+#+AUTHOR: [[mailto:pengwenbin7@126.com][pengwenbin7]]
+#+TITLE: X11 改键
+
+=~/.xsession=
+#+BEGIN_SRC bash
+Section "InputClass"
+	Identifier            "Keyboard Setting"
+	MatchIsKeyboard       "yes"
+	Option                "XkbOptions" "ctrl:nocaps"
+EndSection
+#+END_SRC
