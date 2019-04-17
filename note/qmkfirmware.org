@@ -1,0 +1,210 @@
+#+HTML_HEAD: <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+#+HTML_HEAD: <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+#+HTML_HEAD: <link rel="stylesheet" href="https://xiaoxiaohouzi_admin.gitee.io/blog-assets/readtheorg/css/readtheorg.css">
+#+HTML_HEAD: <link rel="stylesheet" href="https://xiaoxiaohouzi_admin.gitee.io/blog-assets/readtheorg/css/rtd-full.css">
+#+HTML_HEAD: <link rel="stylesheet" href="https://xiaoxiaohouzi_admin.gitee.io/blog-assets/article.css">
+#+HTML_HEAD: <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script src="https://xiaoxiaohouzi_admin.gitee.io/blog-assets/readtheorg/js/readtheorg.js"></script>
+#+HTML_HEAD: <script src="https://xiaoxiaohouzi_admin.gitee.io/blog-assets/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script src="https://xiaoxiaohouzi_admin.gitee.io/blog-assets/article.js"></script>
+
+#+OPTIONS: ^:{} 
+#+OPTIONS: _:{}
+#+LATEX_HEADER: \usepackage{ctex}
+#+LaTeX_CLASS_OPTIONS: [12pt,a4paper]
+#+AUTHOR: [[mailto:pengwenbin7@126.com][pengwenbin7]]
+#+TITLE: qmk_firmware guide
+
+利用 [[https://github.com/qmk/qmk_firmware][QMK Firmware]], 我们可以很方便的自定义键盘的布局。
+* PCB 支持
+qmk firmware 支持非常多 PCB (237种), 可以在[[https://qmk.fm/keyboards/][这个页面]]查看支持列表, 如果不支持, 建议不要买这款 PCB 了, 后续支持会很麻烦。
+* Install
+** 环境支持
+使用 qmk, 需要arm交叉编译环境:
+#+BEGIN_SRC
+build-essential
+gcc
+unzip
+wget
+zip
+gcc-avr
+binutils-avr
+avr-libc
+dfu-programmer
+dfu-util
+gcc-arm-none-eabi
+binutils-arm-none-eabi
+libnewlib-arm-none-eabi
+git
+#+END_SRC
+
+Debian/Ubuntu:
+#+BEGIN_SRC shell
+sudo apt-get install gcc unzip wget zip gcc-avr binutils-avr avr-libc dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi
+#+END_SRC
+
+Fedora/RHEL:
+#+BEGIN_SRC shell
+sudo dnf install gcc unzip wget zip dfu-util dfu-programmer avr-gcc avr-libc binutils-avr32-linux-gnu arm-none-eabi-gcc-cs arm-none-eabi-binutils-cs arm-none-eabi-newlib
+#+END_SRC
+
+macOS:
+#+BEGIN_SRC shell
+brew tap osx-cross/avr
+brew tap PX4/homebrew-px4
+brew update
+brew install avr-gcc@7
+brew link --force avr-gcc@7
+brew install dfu-programmer
+brew install dfu-util
+brew install gcc-arm-none-eabi
+brew install avrdude
+#+END_SRC
+
+更多操作系统支持查看 [[https://docs.qmk.fm/#/getting_started_build_tools][build_tools]]。以下以操作在 Ubuntu 16.04 进行。
+
+** 下载源码
+用 git clone 就好啦
+#+BEGIN_SRC shell
+git clone git@github.com:qmk/qmk_firmware.git
+#+END_SRC
+
+* 自定义 keymap
+** 布局位置
+在 =$path_to_qmk$/keyboards/= 下找到自己的 pcb，
+在 =$path_to_pcb$/keymaps/= 下找到一个喜欢的布局(主流的是default),
+在这里可以看到 =keymap.c= 文件，编辑这个文件即可。
+对于 amj60 PCB 的默认布局，需要编辑的文件位于:
+#+BEGIN_SRC 
+~/qmk_firmware-master/keyboards/amj60/keymaps/default/keymap.c
+#+END_SRC
+** 层
+#+BEGIN_SRC c -n
+#include QMK_KEYBOARD_H
+
+// Each layer gets a name for readability, which is then used in the keymap matrix below.
+// The underscores don't mean anything - you can have a layer called STUFF or any other name.
+// Layer names don't all need to be of the same length, obviously, and you can also skip them
+// entirely and just use numbers.
+#define _DEF 0
+#define _SPC 1
+
+// dual-role shortcuts
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /* Keymap _DEF: Default Layer
+     * ,-----------------------------------------------------------.
+     * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =| \ | ~ |
+     * |-----------------------------------------------------------|
+     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]| bspc|
+     * |-----------------------------------------------------------|
+     * |Caps   | A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '| Return |
+     * |-----------------------------------------------------------|
+     * |Sft | Fn0|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /| Sft |Fn2|
+     * |-----------------------------------------------------------|
+     * |Ctrl|Win |Alt |      Space/Fn0         |Alt |Win |Menu|RCtl|
+     * `-----------------------------------------------------------'
+     */
+    [_DEF] = LAYOUT_max(
+        KC_ESC,   KC_1,    KC_2,    KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9,    KC_0,    KC_MINS, KC_EQL, KC_BSLS, KC_GRV, \
+        KC_TAB,   KC_Q,    KC_W,    KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O,    KC_P,    KC_LBRC, KC_RBRC,    KC_BSPC,  \
+        KC_LCTL,  KC_A,    KC_S,    KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L,    KC_SCLN, KC_QUOT, KC_ENT,   \
+        KC_LSFT,  _______,    KC_Z,    KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,   KC_UP,     \
+        TG(1),  KC_LGUI, KC_LALT,             KC_SPACE,                       _______, KC_LEFT, KC_RIGHT,    KC_DOWN),
+
+    /* Keymap 1: F-and-vim Layer, modified with Space (by holding space)
+     * ,-----------------------------------------------------------.
+     * |PrSc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   |  |
+     * |-----------------------------------------------------------|
+     * |    |Paus| Up| [ | ] |   |   |   | ( | ) |   |   |   | Del |
+     * |-----------------------------------------------------------|
+     * |      |Lft|Dwn|Rgt|   |   |Left|Down|Right|Up|  |   | PLAY |
+     * |-----------------------------------------------------------|
+     * |    |   |   |   | < | > |   |M0 |   |   |   |   | Vol+ |   |
+     * |-----------------------------------------------------------|
+     * |    |    |    |                        |Alt |Prev|Vol-|Next|
+     * `-----------------------------------------------------------'
+     */
+    [_SPC] = LAYOUT_max(
+        KC_PSCR, KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,    KC_F7,     KC_F8,     KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_DEL, \
+        _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_DEL, \
+        _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, \
+        _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______, KC_UP, _______, \
+        TO(0), _______, _______,                                  _______,                                 _______, KC_LEFT, KC_DOWN, KC_RIGHT),
+
+};
+#+END_SRC
+
+首先定义层, 默认的层一般是“0”, 第二层是“1”, 依次类推, 支持层的数量视 PCB 而定, 
+不过一般不少于两层。按下一个键时，首先检测当前所在的层，如果该层对于此键有定义则使用
+定义的行为，否则使用默认层的行为。默认层永不关闭。
+定义了如下层切换宏：
++ DF(layer) 切换默认层, 比如左下第一个键在默认层定义为 DF(1), 那么当按下这个键时,默认层会切换为 1, 你可以在第二层左下第一个键的位置定义 DF(0) 实现来回切换(并不建议定义太过于变化莫测的规则)
++ MO(layer) 按下激活层 layer, 类似于常规键盘的 shift
++ LM(layer, mod) 按下激活层 layer, 同时激活 mod, 仅支持左功能键 MOD_LCTL(左ctrl), MOD_LSFT(左shift),MOD_LALT(左alt), MOD_LGUI(左徽标), 最多支持 0-15 层
++ LT(layer, kc) 按下激活层 layer, 同时按下 kc 键, 最多支持 0-15 层
++ OSL(layer) 按下以后等待下一次按键, 下一次按键激活 layer 层, 然后回到默认层, 常规键盘无此功能
++ TG(layer) 如果 layer 层是激活的就关闭它，否则激活之, 类似于 caps
++ TO(layer) 激活 layer 层并关闭除默认层外其他所有层, 类似于 caps
++ TT(layer) 按下此键时 layer 激活, 松开关闭, 等同于 MO;连续按5次(可以通过 #define TAPPING_TOGGLE 更改)则 layer 层长期开启, 等同于 LG
+
+* 编译固件
+在 =$path_to_qmk$/= 下执行 =make PCB:keymap=
+#+BEGIN_SRC shell
+xl@xl:~/qmk_firmware-master$ make amj60:default
+Making amj60 with keymap default
+
+avr-gcc (GCC) 4.9.2
+Copyright (C) 2014 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Size before:
+   text	   data	    bss	    dec	    hex	filename
+      0	  28464	      0	  28464	   6f30	.build/amj60_default.hex
+
+Compiling: tmk_core/common/command.c                                                                [OK]
+Linking: .build/amj60_default.elf                                                                   [OK]
+Creating load file for flashing: .build/amj60_default.hex                                           [OK]
+Copying amj60_default.hex to qmk_firmware folder                                                    [OK]
+Checking file size of amj60_default.hex                                                             [WARNINGS]
+
+ * The firmware size is approaching the maximum - 28464/28672 (208 bytes free)
+#+END_SRC
+
+当前目录下生成 =amj60_default.hex= 就是要烧写到键盘的二(十六)进制文件，
+这里有一个固件大小接近最大值的警告，不用在意。
+
+* 烧写固件
+以下操作，需要有第二块键盘，如果没有，"onBoard"或者其他软键盘也可以凑合一下。
+首先，将PCB切换到烧写模式(一般有个什么键，长按5秒左右即可).
+
+1.查看芯片型号
+#+BEGIN_SRC shell
+xl@xl:~$ lsusb
+Bus 002 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 001 Device 006: ID 03eb:2ff4 Atmel Corp. atmega32u4 DFU bootloader
+Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+#+END_SRC
+
+atmega32u4 就是当前的芯片型号, 正处于 DFU bootloader 模式。
+
+2.擦写原固件
+#+BEGIN_SRC shell
+sudo dfu-programmer atmega32u4 erase
+#+END_SRC
+
+3.烧写新固件
+#+BEGIN_SRC shell
+sudo dfu-programmer atmega32u4 flash amj60_default.hex
+#+END_SRC
+
+4.重启键盘
+#+BEGIN_SRC shell
+sudo dfu-programmer atmega32u4 reset
+#+END_SRC
+
+Happy hacking!

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>数据结构及应用算法笔记</title>
-<!-- 2018-01-14 Sun 22:15 -->
+<!-- 2018-01-14 Sun 23:32 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="[[mailto:pengwenbin7@126.com][pengwenbin7]]pengwenbin7" />
@@ -157,7 +157,13 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-1">1.1. 按逻辑结构，数据结构分成</a></li>
 <li><a href="#sec-1-2">1.2. 对于图状结构</a></li>
 <li><a href="#sec-1-3">1.3. 证明(全世界任意6个人中，必有3个互相认识或互相不认识)</a></li>
-<li><a href="#sec-1-4">1.4. 定义数据结构、算法</a></li>
+<li><a href="#sec-1-4">1.4. 定义数据结构</a></li>
+<li><a href="#sec-1-5">1.5. 分析数据结构</a></li>
+<li><a href="#sec-1-6">1.6. 算法定义</a></li>
+<li><a href="#sec-1-7">1.7. 算法基本特点</a></li>
+<li><a href="#sec-1-8">1.8. 比较算法的优劣</a></li>
+<li><a href="#sec-1-9">1.9. 时间复杂度</a></li>
+<li><a href="#sec-1-10">1.10. 练习</a></li>
 </ul>
 </li>
 </ul>
@@ -184,9 +190,9 @@ for the JavaScript code in this tag.
 <h3 id="sec-1-2"><span class="section-number-3">1.2</span> 对于图状结构</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
-<li>对象 -&gt; 点
+<li>对象 =&gt; 点
 </li>
-<li>对象的关系 -&gt; 边
+<li>对象的关系 =&gt; 边
 </li>
 </ul>
 </div>
@@ -195,23 +201,89 @@ for the JavaScript code in this tag.
 <h3 id="sec-1-3"><span class="section-number-3">1.3</span> 证明(全世界任意6个人中，必有3个互相认识或互相不认识)</h3>
 </div>
 <div id="outline-container-sec-1-4" class="outline-3">
-<h3 id="sec-1-4"><span class="section-number-3">1.4</span> 定义数据结构、算法</h3>
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> 定义数据结构</h3>
 <div class="outline-text-3" id="text-1-4">
 <ul class="org-ul">
-<li>利用计算机语言来描述所要处理的对象的方法 -&gt; 数据结构
-</li>
-<li>处理这些对象的方法 -&gt; 算法
+<li>利用计算机语言来描述所要处理的对象的方法 =&gt; 数据结构(处理这些对象的方法就是算法)
 </li>
 <li>数据结构 + 算法 = 程序
 </li>
 </ul>
 </div>
 </div>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> 分析数据结构</h3>
+<div class="outline-text-3" id="text-1-5">
+<ol class="org-ol">
+<li>如何定义一个数据结构
+</li>
+<li>这个结构的基本操作
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> 算法定义</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+计算机求解问题的步骤
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> 算法基本特点</h3>
+<div class="outline-text-3" id="text-1-7">
+<ol class="org-ol">
+<li>一定要有输入
+</li>
+<li>一定要有输出
+</li>
+<li>由有限指令组成
+</li>
+<li>每步操作明确
+</li>
+<li>可实现
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="section-number-3">1.8</span> 比较算法的优劣</h3>
+<div class="outline-text-3" id="text-1-8">
+<ol class="org-ol">
+<li>时间(cpu) - 主要
+</li>
+<li>空间(memory)
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9"><span class="section-number-3">1.9</span> 时间复杂度</h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+估算算法需要的基本操作次数
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-10" class="outline-3">
+<h3 id="sec-1-10"><span class="section-number-3">1.10</span> 练习</h3>
+<div class="outline-text-3" id="text-1-10">
+<ol class="org-ol">
+<li>数组A有n个元素,求A中第k大的值
+</li>
+<li>计算矩阵乘法的时间复杂度
+对于 A(i x j) * B(j x k),共有(i x k)项相加，每一项是j个常数乘积的和，所以时间复杂度是
+O(i*j*k)，对于方阵，复杂度是O(n^3)。
+</li>
+</ol>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: <a href="mailto:pengwenbin7@126.com">pengwenbin7</a></p>
-<p class="date">Created: 2018-01-14 Sun 22:15</p>
+<p class="date">Created: 2018-01-14 Sun 23:32</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.4 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
